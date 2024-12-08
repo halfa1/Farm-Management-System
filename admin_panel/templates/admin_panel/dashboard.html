@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Admin Dashboard</h2>
+    <h3>Farm Blocks</h3>
+    <ul>
+        {% for block in blocks %}
+        <li>{{ block.name }}: {{ block.description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Workers</h3>
+    <ul>
+        {% for worker in workers %}
+        <li>{{ worker.name }} ({{ worker.allocated_block.name }}) - ${{ worker.salary }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Orders</h3>
+    <ul>
+        {% for order in orders %}
+        <li>{{ order.user.username }}: {{ order.product.name }} - {{ order.quantity }} pcs</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

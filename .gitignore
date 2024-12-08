@@ -1,0 +1,23 @@
+# Ignore virtual environment
+env/
+venv/
+# Or if you have a custom virtual environment folder name, like .env:
+# .env/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore environment specific files
+*.sqlite3
+*.db
+
+# Ignore Django migrations
+*/migrations/*
+
+# Ignore log files
+*.log
+
+# Ignore .DS_Store (macOS specific)
+.DS_Store

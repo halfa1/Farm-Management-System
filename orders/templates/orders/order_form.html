@@ -1,0 +1,39 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center">Order Product</h1>
+    <div class="card shadow-sm p-4">
+        <h3>{{ product.name }}</h3>
+        <p><strong>Category:</strong> {{ product.category.name }}</p>
+        <p><strong>Price per Unit:</strong> ${{ product.price_per_quantity }}</p>
+        <p><strong>Availability:</strong> 
+            <span class="text-success">{{ product.availability }} in stock</span>
+        </p>
+
+        {% if product.availability > 0 %}
+        <form method="POST" action="{% url 'add_to_cart' product.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" name="quantity" id="quantity" class="form-control" min="1" max="{{ product.availability }}" required>
+            </div>
+            <p><strong>Total Price:</strong> $<span id="totalPrice">0.00</span></p>
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+        {% else %}
+        <p class="text-danger">This product is currently out of stock and cannot be ordered.</p>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Update the total price dynamically as the user inputs the quantity
+    document.getElementById('quantity').addEventListener('input', function() {
+        const pricePerUnit = {{ product.price_per_quantity }};
+        const quantity = this.value;
+        const totalPrice = pricePerUnit * quantity;
+        document.getElementById('totalPrice').textContent = totalPrice.toFixed(2);
+    });
+</script>
+{% endblock %}

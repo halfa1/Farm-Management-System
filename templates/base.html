@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartFarmer</title>
+    <!-- Adding Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <!-- Adding Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <h1 class="navbar-brand d-flex align-items-center">
+                <img src="{% static 'images/LOGO.jpeg' %}" alt="SmartFarm Logo" width="40" height="40" class="me-2">
+                SMARTFARMER</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'admin_panel' %}">Admin Panel</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'products' %}">Products</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart' %}">
+                                <i class="bi bi-cart" style="font-size: 1.2rem;"></i>
+                                Cart <span class="badge bg-danger">{{ cart_count }}</span>
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'register' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        {% block content %}
+        <!--content from other html templates will appear here-->
+        {% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-5 mt-4">
+        <div class="container">
+            <!-- Contact Info Section -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <p>Address: Makongeni, Kenya</p>
+                    <p>Email: support@smartfarmer.com</p>
+                    <p>Phone: +254 799 865 942</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Support</h5>
+                    <p>Contact Us for enquiries and any other kind of support</p>
+                    <p><a href="mailto:ngesuhalfa5@gmail.com" class="text-white">Email Support</a></p>
+                </div>
+                <!-- Social Media Section -->
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="https://github.com/halfa1" target="_blank" class="text-white mx-2">
+                            <i class="bi bi-github" style="font-size: 30px;"></i>
+                        </a>
+                        <a href="https://facebook.com/halfa halfa" target="_blank" class="text-white mx-2">
+                            <i class="bi bi-facebook" style="font-size: 30px;"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/username" target="_blank" class="text-white mx-2">
+                            <i class="bi bi-linkedin" style="font-size: 30px;"></i>
+                        </a>
+                        <a href="https://instagram.com/username" target="_blank" class="text-white mx-2">
+                            <i class="bi bi-instagram" style="font-size: 30px;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Copyright Section -->
+            <p> <i> &copy;Ngesu Halfamaton 2023 .</i></p>
+        </div>
+    </footer>    
+
+    <!-- Adding Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
